@@ -352,6 +352,18 @@ probit_model <- glm(
   family = binomial(link = "probit"), 
   data = nystate
 )
+
+no_other <- nystate |>
+  filter(race != "Other") |>
+  mutate(race = relevel(as.factor(race), ref = "White"))
+
+  probit_model <- glm(
+  action_dummy ~ race + dtir + income + applicant_credit_score_type + loan_to_value_ratio, 
+  family = binomial(link = "probit"), 
+  data = no_other
+)
 ```
 
 ltv buckets, applicant credit score type. distribution for each race - risk for different types of borrowers? interpret the graphs. accept or not, controlling for risk factors, ethnicity coefficient should be zero.
+
+stack the states datasets, control for state, have a variable called states, compare the states to see if some are more discriminatory than others. break up the ltv into buckets. make one of the dti buckets the reference category.
