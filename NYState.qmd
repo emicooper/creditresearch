@@ -16,6 +16,7 @@ library(dplyr)
 library(tidyverse)
 library(tidymodels)
 library(forcats)
+library(ggridges)
 ```
 
 Data Cleaning:
@@ -54,6 +55,7 @@ nystate <- nystate |> mutate(action_taken =
 Income:
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
+
 nystate %>% 
   mutate(income_new = case_when(income > 1000 ~ 1000, 
                                 income < 0 ~ 0,
@@ -103,6 +105,10 @@ nystate |>
 Relationships of Income and Amount to Action Taken:
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+nystate <- nystate |>
+  mutate(action_taken = as.factor(action_taken))
+
 nystate %>% 
   mutate(amount_new = if_else(loan_amount > 1000000, 1000000, loan_amount)) %>%
 ggplot(aes(x = amount_new, y = action_taken, fill = action_taken)) + 

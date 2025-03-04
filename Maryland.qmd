@@ -6,7 +6,7 @@ editor: visual
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 
-maryland <- read.csv("~/Rstudio/Credit Research/MD/state_MD.csv",
+maryland <- read.csv("~/Documents/GitHub/creditresearch/state_MD.csv",
  na = c("NA", "Joint", "Sex Not Available", "Race Not Available", "Ethnicity Not Available", "Exempt", "Free Form Text Only"))
 
 library(janitor)
@@ -296,7 +296,7 @@ ggplot(maryland, aes(x = dtir, fill = dtir)) +
   theme_minimal()
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 
 maryland |>
   filter(race != "White") |>
@@ -357,6 +357,13 @@ probit_model <- glm(
   family = binomial(link = "probit"), 
   data = maryland
 )
+
 ```
 
-ltv buckets, applicant credit score type. distribution for each race - risk for different types of borrowers? interpret the graphs. accept or not, controlling for risk factors, ethnicity coefficient should be zero.
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+results <- as.data.frame(probit_model$coefficients)
+results
+
+kable(results, caption = "Regression Model Coefficients")
+```
