@@ -16,6 +16,7 @@ library(dplyr)
 library(tidyverse)
 library(tidymodels)
 library(forcats)
+library(knitr)
 ```
 
 Data Cleaning:
@@ -365,5 +366,5 @@ probit_model <- glm(
 results <- as.data.frame(probit_model$coefficients)
 results
 
-kable(results, caption = "Regression Model Coefficients")
+kable(results, caption = "Regression Model Coefficients - Maryland")
 ```

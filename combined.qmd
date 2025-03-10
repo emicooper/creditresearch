@@ -11,20 +11,16 @@ nystate$state <- "New York"
 
 combined_data <- bind_rows(maryland, nystate)
 
-combined_data <- combined_data %>%
-  mutate(
-    state = as.factor(state),
-    race = as.factor(race),
-    applicant_credit_score_type = as.factor(applicant_credit_score_type)
-  )
-
-combined_data <- combined_data %>%
-  race = !is.na(race)
-
 probit_model_trial <- glm(
   action_dummy ~ state + race + dtir + income + applicant_credit_score_type + loan_to_value_ratio, 
   family = binomial(link = "probit"), 
   data = combined_data
 )
+
+
+results3 <- as.data.frame(probit_model_trial$coefficients)
+results3
+
+kable(results3, caption = "Regression Model Coefficients - State comparison")
 
 ```
